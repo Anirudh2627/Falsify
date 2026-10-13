@@ -1,0 +1,3 @@
+# Runtime dependencies for the Falsify verification engine (Python >= 3.11)
+pydantic>=2.7
+httpx>=0.27

@@ -1,0 +1,41 @@
+[project]
+name = "falsify"
+version = "1.0.0"
+description = "Falsify - claim-level adversarial verification engine (core intelligence component)"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.7",
+    "httpx>=0.27",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "RUF059", "RUF100"]
+ignore = [
+    "E501",   # long lines allowed up to formatter discretion
+    "B008",   # function call in default argument (pytest fixtures)
+    "UP042",  # (str, Enum) kept intentionally for max JSON-encoder interoperability
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["B011", "RUF059"]
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+check_untyped_defs = false
+# Pragmatic baseline: the codebase is fully type-hinted; we don't enforce
+# strict mode because pydantic/protocol interactions need per-line ignores.
