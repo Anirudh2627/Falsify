@@ -1,0 +1,32 @@
+services:
+  falsify:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: falsify-app
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8000}:8000"
+    environment:
+      - DATABASE_URL=sqlite:////app/data/falsify.db
+      - STATIC_DIR=/app/frontend/dist
+      - TAVILY_API_KEY=${TAVILY_API_KEY:-}
+      - LLM_API_KEY=${LLM_API_KEY:-}
+      - LLM_BASE_URL=${LLM_BASE_URL:-https://api.openai.com/v1}
+      - LLM_MODEL=${LLM_MODEL:-gpt-4o-mini}
+      - 'CORS_ORIGINS=${CORS_ORIGINS:-["*"]}'
+      - MAX_REQUEST_SIZE_BYTES=${MAX_REQUEST_SIZE_BYTES:-1048576}
+      - RATE_LIMIT_PER_MINUTE=${RATE_LIMIT_PER_MINUTE:-0}
+    volumes:
+      - falsify_data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
+volumes:
+  falsify_data:
+    driver: local
