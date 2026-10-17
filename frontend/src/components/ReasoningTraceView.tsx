@@ -14,18 +14,18 @@ export const ReasoningTraceView: React.FC<Props> = ({ trace, fullResult }) => {
   const timings = trace?.stage_timings_ms || {};
 
   return (
-    <div className="bg-[#0a0e17] rounded-xl border border-[#1b2538] shadow-[0_0_25px_rgba(0,0,0,0.7)] p-6 mb-8 font-mono">
+    <div className="bg-[#0a0e17] rounded-xl border border-slate-800 shadow-sm p-6 mb-8 font-sans">
       <div
         className="flex items-center justify-between cursor-pointer select-none"
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-amber-950/80 border border-amber-500/40 text-amber-400 flex items-center justify-center shadow-[0_0_10px_rgba(245,158,11,0.3)]">
+          <div className="w-8 h-8 rounded-lg bg-indigo-950/60 border border-indigo-500/30 text-indigo-400 flex items-center justify-center shadow-sm">
             <Terminal className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm sm:text-base font-bold text-white tracking-wide">
-              Audit & Reasoning Trace
+            <h3 className="text-sm sm:text-base font-semibold text-white tracking-normal font-sans">
+              Audit &amp; Reasoning Trace
             </h3>
             <p className="text-xs text-slate-400">
               Detailed stage execution latency and full structured JSON data contract.
@@ -43,22 +43,22 @@ export const ReasoningTraceView: React.FC<Props> = ({ trace, fullResult }) => {
       </div>
 
       {isOpen && (
-        <div className="mt-5 space-y-5 pt-4 border-t border-[#162033]">
+        <div className="mt-5 space-y-5 pt-4 border-t border-slate-800">
           {/* Stage Timings */}
           {Object.keys(timings).length > 0 && (
             <div>
-              <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">
-                <Clock className="w-3.5 h-3.5 text-cyan-400" />
+              <div className="flex items-center gap-1.5 text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-2 font-sans">
+                <Clock className="w-3.5 h-3.5 text-slate-400" />
                 <span>Pipeline Stage Latency (ms)</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {Object.entries(timings).map(([stage, ms]) => (
                   <div
                     key={stage}
-                    className="px-2.5 py-1.5 rounded-lg bg-[#080d16] border border-[#162033] text-xs flex items-center gap-2"
+                    className="px-2.5 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800 text-xs flex items-center gap-2"
                   >
-                    <span className="font-mono text-cyan-400 capitalize">{stage}</span>
-                    <span className="font-mono font-bold text-slate-200">{ms}ms</span>
+                    <span className="font-sans font-medium text-indigo-300 capitalize">{stage}</span>
+                    <span className="font-sans font-semibold text-white">{ms}ms</span>
                   </div>
                 ))}
               </div>
@@ -68,14 +68,14 @@ export const ReasoningTraceView: React.FC<Props> = ({ trace, fullResult }) => {
           {/* Raw JSON Toggle */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
-                <Code className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest flex items-center gap-1.5 font-sans">
+                <Code className="w-3.5 h-3.5 text-slate-400" />
                 <span>Structured Output JSON</span>
               </span>
               <button
                 type="button"
                 onClick={() => setShowRawJson(!showRawJson)}
-                className="text-xs text-cyan-400 hover:text-cyan-300 font-bold"
+                className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold font-sans"
               >
                 {showRawJson ? 'Hide Full JSON Output' : 'Show Full JSON Output'}
               </button>

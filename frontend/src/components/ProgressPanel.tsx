@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Loader2,
   CheckCircle2,
@@ -14,8 +14,11 @@ import {
   Sparkles,
   Activity,
   Radio,
+  Workflow,
+  List,
 } from 'lucide-react';
 import { StreamProgressEvent } from '../types/falsify';
+import { PipelineStageDiagram } from './PipelineStageDiagram';
 
 interface Props {
   stages: StreamProgressEvent[];
@@ -37,92 +40,92 @@ interface StageStyle {
 const STAGE_CONFIG: Record<string, StageStyle> = {
   normalization: {
     label: 'Normalization',
-    badge: 'bg-indigo-500/15 text-indigo-300 border-indigo-500/30',
-    border: 'border-indigo-500/30',
-    iconBg: 'bg-indigo-950/80 text-indigo-400 border-indigo-500/40',
-    glow: 'rgba(99, 102, 241, 0.25)',
+    badge: 'bg-slate-800 text-slate-300 border-slate-700/60',
+    border: 'border-slate-800',
+    iconBg: 'bg-slate-800 text-slate-300 border-slate-700/60',
+    glow: 'none',
     icon: Layers,
   },
   hypotheses: {
     label: 'Hypotheses',
-    badge: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
-    border: 'border-amber-500/30',
-    iconBg: 'bg-amber-950/80 text-amber-400 border-amber-500/40',
-    glow: 'rgba(245, 158, 11, 0.25)',
+    badge: 'bg-slate-800 text-slate-300 border-slate-700/60',
+    border: 'border-slate-800',
+    iconBg: 'bg-slate-800 text-slate-300 border-slate-700/60',
+    glow: 'none',
     icon: HelpCircle,
   },
   query_generation: {
     label: 'Query Gen',
-    badge: 'bg-sky-500/15 text-sky-300 border-sky-500/30',
-    border: 'border-sky-500/30',
-    iconBg: 'bg-sky-950/80 text-sky-400 border-sky-500/40',
-    glow: 'rgba(14, 165, 233, 0.25)',
+    badge: 'bg-slate-800 text-slate-300 border-slate-700/60',
+    border: 'border-slate-800',
+    iconBg: 'bg-slate-800 text-slate-300 border-slate-700/60',
+    glow: 'none',
     icon: Search,
   },
   retrieval: {
     label: 'Retrieval',
-    badge: 'bg-teal-500/15 text-teal-300 border-teal-500/30',
-    border: 'border-teal-500/30',
-    iconBg: 'bg-teal-950/80 text-teal-400 border-teal-500/40',
-    glow: 'rgba(20, 184, 166, 0.25)',
+    badge: 'bg-slate-800 text-slate-300 border-slate-700/60',
+    border: 'border-slate-800',
+    iconBg: 'bg-slate-800 text-slate-300 border-slate-700/60',
+    glow: 'none',
     icon: Globe,
   },
   assessment: {
     label: 'Assessment',
-    badge: 'bg-purple-500/15 text-purple-300 border-purple-500/30',
-    border: 'border-purple-500/30',
-    iconBg: 'bg-purple-950/80 text-purple-400 border-purple-500/40',
-    glow: 'rgba(168, 85, 247, 0.25)',
+    badge: 'bg-slate-800 text-slate-300 border-slate-700/60',
+    border: 'border-slate-800',
+    iconBg: 'bg-slate-800 text-slate-300 border-slate-700/60',
+    glow: 'none',
     icon: Scale,
   },
   contradiction_detection: {
     label: 'Contradiction',
-    badge: 'bg-rose-500/15 text-rose-300 border-rose-500/30',
-    border: 'border-rose-500/30',
-    iconBg: 'bg-rose-950/80 text-rose-400 border-rose-500/40',
-    glow: 'rgba(244, 63, 94, 0.25)',
+    badge: 'bg-slate-800 text-slate-300 border-slate-700/60',
+    border: 'border-slate-800',
+    iconBg: 'bg-slate-800 text-slate-300 border-slate-700/60',
+    glow: 'none',
     icon: ShieldAlert,
   },
   fusion: {
     label: 'Fusion',
-    badge: 'bg-fuchsia-500/15 text-fuchsia-300 border-fuchsia-500/30',
-    border: 'border-fuchsia-500/30',
-    iconBg: 'bg-fuchsia-950/80 text-fuchsia-400 border-fuchsia-500/40',
-    glow: 'rgba(217, 70, 239, 0.25)',
+    badge: 'bg-slate-800 text-slate-300 border-slate-700/60',
+    border: 'border-slate-800',
+    iconBg: 'bg-slate-800 text-slate-300 border-slate-700/60',
+    glow: 'none',
     icon: GitMerge,
   },
   verdict: {
     label: 'Verdict',
-    badge: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
-    border: 'border-emerald-500/30',
-    iconBg: 'bg-emerald-950/80 text-emerald-400 border-emerald-500/40',
-    glow: 'rgba(16, 185, 129, 0.25)',
+    badge: 'bg-slate-800 text-slate-300 border-slate-700/60',
+    border: 'border-slate-800',
+    iconBg: 'bg-slate-800 text-slate-300 border-slate-700/60',
+    glow: 'none',
     icon: CheckCircle2,
   },
   confidence: {
     label: 'Confidence',
-    badge: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30',
-    border: 'border-cyan-500/30',
-    iconBg: 'bg-cyan-950/80 text-cyan-400 border-cyan-500/40',
-    glow: 'rgba(6, 182, 212, 0.25)',
+    badge: 'bg-slate-800 text-slate-300 border-slate-700/60',
+    border: 'border-slate-800',
+    iconBg: 'bg-slate-800 text-slate-300 border-slate-700/60',
+    glow: 'none',
     icon: Activity,
   },
   synthesis: {
     label: 'Synthesis',
-    badge: 'bg-violet-500/15 text-violet-300 border-violet-500/30',
-    border: 'border-violet-500/30',
-    iconBg: 'bg-violet-950/80 text-violet-400 border-violet-500/40',
-    glow: 'rgba(139, 92, 246, 0.25)',
+    badge: 'bg-slate-800 text-slate-300 border-slate-700/60',
+    border: 'border-slate-800',
+    iconBg: 'bg-slate-800 text-slate-300 border-slate-700/60',
+    glow: 'none',
     icon: Sparkles,
   },
 };
 
 const DEFAULT_STAGE_STYLE: StageStyle = {
   label: 'Pipeline',
-  badge: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30',
-  border: 'border-cyan-500/30',
-  iconBg: 'bg-cyan-950/80 text-cyan-400 border-cyan-500/40',
-  glow: 'rgba(6, 182, 212, 0.25)',
+  badge: 'bg-slate-800 text-slate-300 border-slate-700/60',
+  border: 'border-slate-800',
+  iconBg: 'bg-slate-800 text-slate-300 border-slate-700/60',
+  glow: 'none',
   icon: Activity,
 };
 
@@ -137,36 +140,26 @@ export const ProgressPanel: React.FC<Props> = ({
   const latestProgress = stages.length > 0 ? stages[stages.length - 1].progress : 0.05;
   const progressPercent = Math.min(Math.round(latestProgress * 100), 100);
 
-  return (
-    <div className="glass-panel-glow rounded-2xl p-5 mb-6 transition-all duration-300 relative overflow-hidden font-sans">
-      {/* Ambient background glow orb */}
-      <div
-        className="absolute -top-24 -right-24 w-64 h-64 rounded-full pointer-events-none blur-3xl opacity-20"
-        style={{
-          background: errorMessage
-            ? 'radial-gradient(circle, #f43f5e 0%, transparent 70%)'
-            : isStreaming
-            ? 'radial-gradient(circle, #06b6d4 0%, transparent 70%)'
-            : 'radial-gradient(circle, #10b981 0%, transparent 70%)',
-        }}
-      />
+  const [viewMode, setViewMode] = useState<'diagram' | 'trace'>('diagram');
 
+  return (
+    <div className="surface-card rounded-2xl p-5 mb-6 transition-all duration-300 relative font-sans">
       {/* Header bar */}
       <div className="flex items-center justify-between pb-3.5 border-b border-white/[0.08] relative z-10">
         <div className="flex items-center gap-3.5">
           <div
-            className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all shadow-lg ${
+            className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all shadow-sm ${
               errorMessage
-                ? 'bg-rose-950/80 border border-rose-500/40 text-rose-400 shadow-[0_0_12px_rgba(244,63,94,0.3)]'
+                ? 'bg-rose-950/80 border border-rose-500/40 text-rose-400'
                 : isStreaming
-                ? 'bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 animate-ring-pulse shadow-[0_0_15px_rgba(6,182,212,0.4)]'
-                : 'bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.3)]'
+                ? 'bg-indigo-950/80 border border-indigo-500/40 text-indigo-300'
+                : 'bg-emerald-950/80 border border-emerald-500/40 text-emerald-400'
             }`}
           >
             {errorMessage ? (
               <AlertCircle className="w-4 h-4 text-rose-400" />
             ) : isStreaming ? (
-              <Loader2 className="w-4 h-4 animate-spin text-cyan-300" />
+              <Loader2 className="w-4 h-4 animate-spin text-indigo-300" />
             ) : (
               <CheckCircle2 className="w-4 h-4 text-emerald-400" />
             )}
@@ -174,7 +167,7 @@ export const ProgressPanel: React.FC<Props> = ({
 
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="font-display text-sm font-bold tracking-tight text-white">
+              <h3 className="font-semibold text-sm tracking-tight text-white font-sans">
                 {errorMessage
                   ? 'Verification Halted'
                   : isStreaming
@@ -182,8 +175,8 @@ export const ProgressPanel: React.FC<Props> = ({
                   : 'Verification Completed'}
               </h3>
               {isStreaming && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-cyan-950/70 border border-cyan-500/30 text-cyan-300 animate-pulse">
-                  <Radio className="w-2.5 h-2.5 text-cyan-400 animate-spin" />
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-sans font-medium bg-indigo-950/70 border border-indigo-500/30 text-indigo-300">
+                  <Radio className="w-2.5 h-2.5 text-indigo-400" />
                   LIVE STREAM
                 </span>
               )}
@@ -200,7 +193,7 @@ export const ProgressPanel: React.FC<Props> = ({
           <button
             type="button"
             onClick={onCancelStream}
-            className="text-xs font-medium text-slate-400 hover:text-rose-300 px-3 py-1.5 rounded-lg border border-white/10 hover:border-rose-500/40 bg-white/[0.03] hover:bg-rose-950/30 transition-all duration-200 active:scale-95"
+            className="text-xs font-medium text-slate-400 hover:text-rose-300 px-3 py-1.5 rounded-lg border border-white/10 hover:border-rose-500/40 bg-white/[0.03] hover:bg-rose-950/30 transition-all duration-200 active:scale-95 font-sans"
           >
             Disconnect Stream
           </button>
@@ -211,112 +204,147 @@ export const ProgressPanel: React.FC<Props> = ({
       <div className="my-4 relative z-10">
         <div className="flex justify-between items-center text-xs mb-1.5">
           <div className="flex items-center gap-2 max-w-[80%]">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
-            <span className="font-medium text-cyan-200 truncate font-sans">
+            <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+            <span className="font-medium text-slate-300 truncate font-sans">
               {latestMessage || 'Initializing pipeline...'}
             </span>
           </div>
-          <span className="text-cyan-400 font-mono font-bold text-xs tracking-wider">
+          <span className="text-indigo-300 font-sans font-semibold text-xs tracking-wider">
             {progressPercent}%
           </span>
         </div>
 
         {/* Multi-layered Glowing Progress Bar */}
-        <div className="w-full bg-black/40 rounded-full h-2.5 p-0.5 border border-white/10 shadow-inner overflow-hidden">
+        <div className="w-full bg-slate-950/80 rounded-full h-2 p-0.5 border border-white/10 shadow-inner overflow-hidden">
           <div
             className={`h-full rounded-full transition-all duration-500 ease-out relative ${
               errorMessage
                 ? 'bg-rose-500'
-                : 'bg-gradient-to-r from-indigo-500 via-cyan-400 to-emerald-400 shadow-[0_0_12px_rgba(6,182,212,0.6)]'
+                : 'bg-gradient-to-r from-indigo-500 via-blue-500 to-emerald-400 shadow-sm'
             }`}
             style={{ width: `${progressPercent}%` }}
           >
             {isStreaming && (
-              <div className="absolute inset-0 bg-white/25 animate-shimmer rounded-full" />
+              <div className="absolute inset-0 bg-white/20 animate-shimmer rounded-full" />
             )}
           </div>
         </div>
       </div>
 
-      {/* Pipeline Stage Trace Timeline */}
-      <div className="mt-3 relative z-10">
-        <div className="flex items-center justify-between mb-2.5">
-          <h4 className="text-[11px] font-display font-bold uppercase tracking-wider text-slate-400">
-            Pipeline Stage Trace
-          </h4>
-          {stages.length > 0 && (
-            <span className="text-[10px] font-mono text-slate-400">
-              Stage {stages.length} of ~10
-            </span>
-          )}
+      {/* Pipeline Stage Trace & Architecture Diagram */}
+      <div className="mt-4 relative z-10">
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div className="flex items-center gap-2.5">
+            <h4 className="text-[11px] font-sans font-semibold uppercase tracking-wider text-slate-400">
+              Pipeline Stage Trace
+            </h4>
+            {stages.length > 0 && (
+              <span className="text-[11px] text-slate-300 bg-slate-800/80 border border-slate-700/60 px-2 py-0.5 rounded-md font-medium">
+                {stages.length} event{stages.length !== 1 ? 's' : ''} logged
+              </span>
+            )}
+          </div>
+
+          {/* View Mode Toggle: Diagram vs Trace Log */}
+          <div className="flex items-center gap-1 bg-slate-950/70 p-1 rounded-lg border border-slate-800">
+            <button
+              type="button"
+              onClick={() => setViewMode('diagram')}
+              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-sans font-medium transition-all ${
+                viewMode === 'diagram'
+                  ? 'bg-slate-800 text-white border border-slate-700 shadow-sm'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              <Workflow className="w-3.5 h-3.5 text-slate-300" />
+              <span>Diagram View</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMode('trace')}
+              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-sans font-medium transition-all ${
+                viewMode === 'trace'
+                  ? 'bg-slate-800 text-white border border-slate-700 shadow-sm'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              <List className="w-3.5 h-3.5 text-slate-300" />
+              <span>Trace Log ({stages.length})</span>
+            </button>
+          </div>
         </div>
 
-        <div className="space-y-2 max-h-56 overflow-y-auto pr-1">
-          {stages.length === 0 ? (
-            <div className="flex items-center gap-2 text-xs text-slate-400 py-2.5 px-3 rounded-lg bg-black/20 border border-white/[0.04]">
-              <Clock className="w-3.5 h-3.5 animate-pulse text-cyan-400" />
-              <span>Awaiting initial stage updates from the engine...</span>
-            </div>
-          ) : (
-            stages.map((stage, idx) => {
-              const isLast = idx === stages.length - 1;
-              const stageKey = stage.stage.toLowerCase();
-              const config = STAGE_CONFIG[stageKey] || DEFAULT_STAGE_STYLE;
-              const StageIcon = config.icon;
+        {viewMode === 'diagram' ? (
+          /* Visual Pipeline Flow Diagram */
+          <PipelineStageDiagram
+            stages={stages}
+            isStreaming={isStreaming}
+            errorMessage={errorMessage}
+          />
+        ) : (
+          /* Linear Chronological Trace Log */
+          <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
+            {stages.length === 0 ? (
+              <div className="flex items-center gap-2 text-xs text-slate-400 py-3 px-3.5 rounded-xl bg-slate-900/40 border border-slate-800">
+                <Clock className="w-3.5 h-3.5 text-slate-400" />
+                <span>Awaiting initial stage updates from the engine...</span>
+              </div>
+            ) : (
+              stages.map((stage, idx) => {
+                const isLast = idx === stages.length - 1;
+                const stageKey = stage.stage.toLowerCase();
+                const config = STAGE_CONFIG[stageKey] || DEFAULT_STAGE_STYLE;
+                const StageIcon = config.icon;
 
-              return (
-                <div
-                  key={idx}
-                  className={`flex items-start gap-3 p-2.5 rounded-xl text-xs transition-all duration-200 animate-stage-in relative overflow-hidden ${
-                    isLast && isStreaming
-                      ? 'bg-gradient-to-r from-cyan-950/50 via-slate-900/60 to-slate-900/40 border border-cyan-500/40 text-cyan-100 shadow-[0_0_16px_rgba(6,182,212,0.15)]'
-                      : 'bg-slate-900/40 hover:bg-slate-900/70 text-slate-300 border border-white/[0.06]'
-                  }`}
-                >
-                  {/* Subtle active background shimmer */}
-                  {isLast && isStreaming && (
-                    <div className="absolute inset-0 pointer-events-none animate-shimmer opacity-40" />
-                  )}
+                return (
+                  <div
+                    key={idx}
+                    className={`flex items-start gap-3 p-2.5 rounded-xl text-xs transition-all duration-150 relative overflow-hidden ${
+                      isLast && isStreaming
+                        ? 'bg-slate-900 border border-slate-700 text-slate-100 shadow-sm'
+                        : 'bg-slate-900/40 hover:bg-slate-900/70 text-slate-300 border border-slate-800'
+                    }`}
+                  >
+                    {/* Left Stage Icon / State Node */}
+                    <div className="mt-0.5 shrink-0 relative z-10">
+                      {isLast && isStreaming ? (
+                        <div className="w-4 h-4 rounded-md bg-blue-950/60 border border-blue-500/50 flex items-center justify-center animate-spin">
+                          <Loader2 className="w-3 h-3 text-blue-300" />
+                        </div>
+                      ) : (
+                        <div className="w-4 h-4 rounded-md bg-emerald-950/50 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+                          <CheckCircle2 className="w-3 h-3" />
+                        </div>
+                      )}
+                    </div>
 
-                  {/* Left Stage Icon / State Node */}
-                  <div className="mt-0.5 shrink-0 relative z-10">
-                    {isLast && isStreaming ? (
-                      <div className="w-4 h-4 rounded-md bg-cyan-950 border border-cyan-400 flex items-center justify-center animate-spin">
-                        <Loader2 className="w-3 h-3 text-cyan-300" />
+                    {/* Stage Label Badge & Informative Message */}
+                    <div className="flex-1 min-w-0 relative z-10">
+                      <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+                        <span
+                          className={`font-semibold text-[10px] px-2 py-0.5 rounded-md border tracking-normal inline-flex items-center gap-1 ${config.badge}`}
+                        >
+                          <StageIcon className="w-2.5 h-2.5" />
+                          {stage.stage}
+                        </span>
+                        <span className="truncate text-slate-200 font-sans font-medium text-[13px]">
+                          {stage.message}
+                        </span>
                       </div>
-                    ) : (
-                      <div className="w-4 h-4 rounded-md bg-emerald-950/70 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
-                        <CheckCircle2 className="w-3 h-3" />
-                      </div>
-                    )}
-                  </div>
+                    </div>
 
-                  {/* Stage Label Badge & Informative Message */}
-                  <div className="flex-1 min-w-0 relative z-10">
-                    <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
-                      <span
-                        className={`font-display font-semibold text-[10px] px-2 py-0.5 rounded-md border tracking-wider uppercase inline-flex items-center gap-1 ${config.badge}`}
-                      >
-                        <StageIcon className="w-2.5 h-2.5" />
-                        {stage.stage}
-                      </span>
-                      <span className="truncate text-slate-200 font-sans font-medium text-[13px]">
-                        {stage.message}
+                    {/* Right Percentage Badge */}
+                    <div className="shrink-0 flex items-center gap-1 relative z-10">
+                      <span className="text-[11px] font-medium text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded border border-slate-700/60">
+                        {Math.round(stage.progress * 100)}%
                       </span>
                     </div>
                   </div>
-
-                  {/* Right Percentage Badge */}
-                  <div className="shrink-0 flex items-center gap-1 relative z-10">
-                    <span className="font-mono text-[11px] font-bold text-cyan-400 bg-cyan-950/60 px-1.5 py-0.5 rounded border border-cyan-500/30">
-                      {Math.round(stage.progress * 100)}%
-                    </span>
-                  </div>
-                </div>
-              );
-            })
-          )}
-        </div>
+                );
+              })
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -4,118 +4,72 @@
 
 @layer base {
   body {
-    @apply bg-[#070a11] text-slate-100 font-sans antialiased overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-200;
+    @apply bg-[#090d16] text-slate-200 font-sans antialiased overflow-x-hidden selection:bg-indigo-500/25 selection:text-indigo-200;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
 }
 
-/* Cyber Blueprint Grid Pattern */
+/* Subtle architectural hairline grid */
+.canvas-grid-bg {
+  background-color: #090d16;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Backward compatibility aliases */
 .cyber-grid-bg {
-  background-color: #070a11;
-  background-image: radial-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px);
-  background-size: 20px 20px;
+  @apply canvas-grid-bg;
 }
 
 .cyber-grid-dense {
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
   background-size: 16px 16px;
 }
 
-/* Glowing Border & Shadow Utilities */
-.glow-cyan {
-  box-shadow: 0 0 15px rgba(0, 245, 212, 0.25), inset 0 0 10px rgba(0, 245, 212, 0.1);
+/* Sophisticated Surface Cards */
+.surface-card {
+  background: #0d121f;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.4);
 }
 
-.glow-pink {
-  box-shadow: 0 0 18px rgba(255, 0, 85, 0.35);
-}
-
-.glow-purple {
-  box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
-}
-
-.glow-emerald {
-  box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
-}
-
-.glow-amber {
-  box-shadow: 0 0 15px rgba(245, 158, 11, 0.25);
-}
-
-/* Radar Sweep Animation */
-@keyframes radar-sweep {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-radar {
-  animation: radar-sweep 4s linear infinite;
-  transform-origin: center;
-}
-
-/* Laser Pulse along SVG Paths */
-@keyframes laser-flow {
-  0% {
-    stroke-dashoffset: 100;
-  }
-  100% {
-    stroke-dashoffset: 0;
-  }
-}
-
-.animate-laser {
-  stroke-dasharray: 6 6;
-  animation: laser-flow 1.5s linear infinite;
-}
-
-/* Subtle Blink for Terminal Status */
-@keyframes cyber-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-
-.animate-cyber-blink {
-  animation: cyber-blink 2s ease-in-out infinite;
-}
-
-/* Custom dark scrollbars */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-::-webkit-scrollbar-track {
-  background: #070a11;
-}
-::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 2px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #06b6d4;
-}
-
-/* Glassmorphism Cards */
 .glass-panel {
-  background: linear-gradient(135deg, rgba(13, 20, 36, 0.75) 0%, rgba(8, 12, 22, 0.85) 100%);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(13, 18, 31, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.5);
 }
 
 .glass-panel-glow {
-  background: linear-gradient(135deg, rgba(14, 23, 42, 0.8) 0%, rgba(8, 14, 26, 0.9) 100%);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(6, 182, 212, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), 0 0 15px rgba(6, 182, 212, 0.08);
+  background: rgba(13, 18, 31, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.55);
 }
 
-/* Shimmer Animation for Active Stages */
+/* Clean Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #090d16;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Subtle Shimmer for in-progress operations */
 @keyframes shimmer-flow {
   0% {
     background-position: -200% 0;
@@ -129,38 +83,18 @@
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0) 0%,
-    rgba(6, 182, 212, 0.12) 50%,
+    rgba(99, 102, 241, 0.1) 50%,
     rgba(255, 255, 255, 0) 100%
   );
   background-size: 200% 100%;
   animation: shimmer-flow 2.5s infinite;
 }
 
-/* Expanding Radar Glow Pulse */
-@keyframes ring-pulse {
-  0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.6);
-  }
-  70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 8px rgba(6, 182, 212, 0);
-  }
-  100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
-  }
-}
-
-.animate-ring-pulse {
-  animation: ring-pulse 2s infinite;
-}
-
-/* Item entrance animation */
+/* Crisp stage entrance animation */
 @keyframes slide-in-up {
   0% {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(4px);
   }
   100% {
     opacity: 1;
@@ -169,6 +103,5 @@
 }
 
 .animate-stage-in {
-  animation: slide-in-up 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slide-in-up 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-

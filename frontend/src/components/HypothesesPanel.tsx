@@ -50,7 +50,7 @@ export const HypothesesPanel: React.FC<Props> = ({ hypotheses, queries }) => {
   };
 
   return (
-    <div className="bg-[#0a0e17] rounded-xl border border-[#1b2538] shadow-[0_0_25px_rgba(0,0,0,0.7)] p-6 mb-8 font-mono">
+    <div className="bg-[#0a0e17] rounded-xl border border-[#1b2538] shadow-[0_0_25px_rgba(0,0,0,0.7)] p-6 mb-8 font-sans">
       <div
         className="flex items-center justify-between cursor-pointer select-none"
         onClick={() => setIsExpanded(!isExpanded)}
@@ -128,7 +128,7 @@ export const HypothesesPanel: React.FC<Props> = ({ hypotheses, queries }) => {
                 {queries.map((q: any, idx: number) => (
                   <div
                     key={q.query_id || idx}
-                    className="p-2.5 rounded-lg border border-[#162033] bg-[#0c121e] text-xs font-mono"
+                    className="p-2.5 rounded-lg border border-[#162033] bg-[#0c121e] text-xs font-sans"
                   >
                     <div className="text-cyan-300 font-semibold truncate">"{q.query}"</div>
                     <div className="text-[10px] text-slate-500 mt-1 flex items-center justify-between">

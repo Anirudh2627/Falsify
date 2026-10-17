@@ -51,9 +51,9 @@ export const VerdictBadge: React.FC<Props> = ({ verdict, size = 'md' }) => {
   const Icon = config.icon;
 
   const sizeClasses = {
-    sm: 'text-xs px-2 py-0.5 gap-1',
-    md: 'text-xs sm:text-sm px-2.5 py-1 gap-1.5 font-mono font-bold tracking-wider',
-    lg: 'text-sm sm:text-base px-3.5 py-1.5 gap-2 font-mono font-bold tracking-wider',
+    sm: 'text-xs px-2 py-0.5 gap-1 font-sans font-semibold tracking-wide',
+    md: 'text-xs sm:text-sm px-2.5 py-1 gap-1.5 font-sans font-semibold tracking-wide',
+    lg: 'text-sm sm:text-base px-3.5 py-1.5 gap-2 font-sans font-semibold tracking-wide',
   }[size];
 
   const iconSizes = {

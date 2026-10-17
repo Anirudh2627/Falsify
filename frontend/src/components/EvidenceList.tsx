@@ -44,28 +44,28 @@ export const EvidenceList: React.FC<Props> = ({ evidenceList, assessments = [] }
     switch (stance) {
       case 'supporting':
         return (
-          <span className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded-full font-bold bg-emerald-950/70 text-emerald-300 border border-emerald-600/70">
+          <span className="inline-flex items-center gap-1 text-[11px] font-sans px-2 py-0.5 rounded-full font-semibold bg-emerald-950/70 text-emerald-300 border border-emerald-600/70">
             <CheckCircle2 className="w-3 h-3 text-emerald-400" />
             Supports Claim
           </span>
         );
       case 'contradicting':
         return (
-          <span className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded-full font-bold bg-rose-950/70 text-rose-300 border border-rose-600/70">
+          <span className="inline-flex items-center gap-1 text-[11px] font-sans px-2 py-0.5 rounded-full font-semibold bg-rose-950/70 text-rose-300 border border-rose-600/70">
             <XCircle className="w-3 h-3 text-rose-400" />
             Contradicts Claim
           </span>
         );
       case 'mixed':
         return (
-          <span className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded-full font-bold bg-amber-950/70 text-amber-300 border border-amber-600/70">
+          <span className="inline-flex items-center gap-1 text-[11px] font-sans px-2 py-0.5 rounded-full font-semibold bg-amber-950/70 text-amber-300 border border-amber-600/70">
             <ShieldAlert className="w-3 h-3 text-amber-400" />
             Mixed Evidence
           </span>
         );
       default:
         return (
-          <span className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded-full font-bold bg-slate-900 text-slate-400 border border-slate-700">
+          <span className="inline-flex items-center gap-1 text-[11px] font-sans px-2 py-0.5 rounded-full font-semibold bg-slate-900 text-slate-400 border border-slate-700">
             <MinusCircle className="w-3 h-3 text-slate-500" />
             Neutral
           </span>
@@ -74,7 +74,7 @@ export const EvidenceList: React.FC<Props> = ({ evidenceList, assessments = [] }
   };
 
   return (
-    <div className="bg-[#0a0e17] rounded-xl border border-[#1b2538] shadow-[0_0_25px_rgba(0,0,0,0.7)] p-6 mb-8 font-mono">
+    <div className="bg-[#0a0e17] rounded-xl border border-[#1b2538] shadow-[0_0_25px_rgba(0,0,0,0.7)] p-6 mb-8 font-sans">
       {/* Header and Filter Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#162033]">
         <div>

@@ -70,19 +70,19 @@ export const ClaimInput: React.FC<Props> = ({
   };
 
   return (
-    <div className="glass-panel rounded-2xl p-5 sm:p-6 mb-6 shadow-2xl relative overflow-hidden transition-all duration-300">
+    <div className="surface-card rounded-2xl p-5 sm:p-6 mb-6 relative overflow-hidden transition-all duration-300 font-sans">
       <div className="mb-4 flex items-center justify-between">
         <div>
           <div className="flex items-center gap-2.5">
-            <h2 className="text-base sm:text-lg font-display font-bold text-white tracking-tight flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_10px_#00f5d4]" />
+            <h2 className="text-base sm:text-lg font-semibold text-white tracking-tight flex items-center gap-2 font-sans">
+              <span className="w-2 h-2 rounded-full bg-indigo-500" />
               Adversarial Claim Verification
             </h2>
-            <span className="font-mono text-[10px] px-2.5 py-0.5 rounded-full bg-cyan-950/70 text-cyan-300 border border-cyan-500/40 font-semibold tracking-wider uppercase">
+            <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-indigo-950/60 text-indigo-300 border border-indigo-500/30 font-medium tracking-normal font-sans">
               POPPERIAN ENGINE
             </span>
           </div>
-          <p className="text-xs font-sans text-slate-300 mt-1.5 leading-relaxed">
+          <p className="text-xs text-slate-300 mt-1.5 leading-relaxed font-sans">
             Formulates rigorous falsification hypotheses, executes targeted adversarial queries across authoritative sources,
             detects numerical & semantic contradictions, and calculates a decisive confidence breakdown.
           </p>
@@ -105,10 +105,10 @@ export const ClaimInput: React.FC<Props> = ({
             onKeyDown={handleKeyDown}
             disabled={isStreaming}
             placeholder="Enter an assertive claim to verify (e.g. 'Company X reported 40% revenue growth in fiscal 2025')..."
-            className={`w-full rounded-xl border p-4 text-sm font-sans text-slate-100 placeholder:text-slate-500 bg-slate-950/60 focus:outline-none transition-all duration-200 backdrop-blur-md leading-relaxed ${
+            className={`w-full rounded-xl border p-4 text-sm font-sans text-slate-100 placeholder:text-slate-500 bg-slate-950/70 focus:outline-none transition-all duration-200 leading-relaxed ${
               isTooLong || validationError
                 ? 'border-rose-500 focus:ring-1 focus:ring-rose-500 bg-rose-950/20'
-                : 'border-white/10 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/40 shadow-inner'
+                : 'border-slate-800 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/30 shadow-inner'
             } ${isStreaming ? 'opacity-70 cursor-not-allowed' : ''}`}
           />
 
@@ -138,20 +138,20 @@ export const ClaimInput: React.FC<Props> = ({
             <button
               type="submit"
               disabled={isStreaming || isTooLong}
-              className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-display font-bold tracking-wider uppercase transition-all duration-200 shadow-md ${
+              className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-semibold tracking-normal transition-all duration-200 shadow-sm ${
                 isStreaming || isTooLong
                   ? 'bg-slate-800 text-slate-500 cursor-not-allowed border border-white/5'
-                  : 'bg-gradient-to-r from-cyan-500 to-teal-400 hover:from-cyan-400 hover:to-teal-300 text-slate-950 font-extrabold shadow-[0_0_20px_rgba(6,182,212,0.35)] active:scale-95'
+                  : 'bg-indigo-600 hover:bg-indigo-500 text-white active:scale-95'
               }`}
             >
               {isStreaming ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin text-slate-950" />
+                  <Loader2 className="w-4 h-4 animate-spin text-white" />
                   <span>Verifying Claim...</span>
                 </>
               ) : (
                 <>
-                  <Search className="w-4 h-4 text-slate-950" />
+                  <Search className="w-4 h-4 text-white" />
                   <span>Verify Claim</span>
                 </>
               )}
@@ -161,7 +161,7 @@ export const ClaimInput: React.FC<Props> = ({
               <button
                 type="button"
                 onClick={onCancelStream}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-sans font-medium text-slate-400 hover:text-rose-300 hover:bg-rose-950/40 border border-white/10 hover:border-rose-500/30 transition-all duration-200"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-sans font-medium text-slate-400 hover:text-rose-300 hover:bg-rose-950/40 border border-slate-800 hover:border-rose-500/30 transition-all duration-200"
                 title="Disconnects from the live stream. Backend verification continues in background."
               >
                 <XCircle className="w-4 h-4 text-rose-400" />
@@ -172,7 +172,7 @@ export const ClaimInput: React.FC<Props> = ({
 
           <div className="text-[11px] font-sans text-slate-400 hidden sm:flex items-center gap-1.5">
             <span>Press</span>
-            <kbd className="px-1.5 py-0.5 rounded bg-white/[0.06] border border-white/10 text-cyan-300 font-mono text-[10px]">
+            <kbd className="px-1.5 py-0.5 rounded bg-slate-800/80 border border-slate-700 text-slate-300 font-mono text-[10px]">
               Ctrl + Enter
             </kbd>
             <span>to execute</span>
@@ -185,7 +185,7 @@ export const ClaimInput: React.FC<Props> = ({
         <div className="mt-4 p-3.5 rounded-xl bg-rose-950/40 border border-rose-500/40 text-rose-300 text-xs font-sans flex items-start gap-2.5">
           <AlertCircle className="w-4 h-4 mt-0.5 shrink-0 text-rose-400" />
           <div>
-            <p className="font-display font-bold uppercase tracking-wider text-rose-400 text-xs">
+            <p className="font-semibold text-rose-400 text-xs">
               Verification Error
             </p>
             <p className="mt-0.5 text-rose-200">{errorMessage}</p>
@@ -194,9 +194,9 @@ export const ClaimInput: React.FC<Props> = ({
       )}
 
       {/* Preset Demonstrations */}
-      <div className="mt-5 pt-4 border-t border-white/[0.08]">
-        <div className="flex items-center gap-2 text-xs font-display font-semibold text-slate-400 mb-2.5">
-          <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+      <div className="mt-5 pt-4 border-t border-slate-800/80">
+        <div className="flex items-center gap-2 text-xs font-medium text-slate-400 mb-2.5">
+          <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
           <span>Curated Benchmarks for Demonstration:</span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
@@ -206,9 +206,9 @@ export const ClaimInput: React.FC<Props> = ({
               type="button"
               disabled={isStreaming}
               onClick={() => handleSelectPreset(p.claim)}
-              className="text-left p-3 rounded-xl border border-white/[0.06] hover:border-cyan-500/40 bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-200 group disabled:opacity-50"
+              className="text-left p-3 rounded-xl border border-slate-800 hover:border-indigo-500/40 bg-slate-900/40 hover:bg-slate-900/80 transition-all duration-200 group disabled:opacity-50"
             >
-              <div className="text-xs font-sans font-semibold text-slate-200 group-hover:text-cyan-300 transition-colors">
+              <div className="text-xs font-sans font-semibold text-slate-200 group-hover:text-indigo-200 transition-colors">
                 {p.label}
               </div>
               <div className="text-[11px] font-sans text-slate-400 mt-1 line-clamp-1 italic group-hover:text-slate-300">

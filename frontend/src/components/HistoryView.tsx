@@ -85,7 +85,7 @@ export const HistoryView: React.FC<Props> = ({ onOpenResult }) => {
   };
 
   return (
-    <div className="bg-[#0a0e17] rounded-xl border border-[#1b2538] shadow-[0_0_25px_rgba(0,0,0,0.7)] p-6 mb-8 font-mono">
+    <div className="bg-[#0a0e17] rounded-xl border border-[#1b2538] shadow-[0_0_25px_rgba(0,0,0,0.7)] p-6 mb-8 font-sans">
       {/* Top Header & Filters */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#162033]">
         <div className="flex items-center gap-2.5">
@@ -165,14 +165,14 @@ export const HistoryView: React.FC<Props> = ({ onOpenResult }) => {
               <tbody className="divide-y divide-[#162033]">
                 {data.items.map((item) => (
                   <tr key={item.id} className="hover:bg-[#0c1322] transition-colors">
-                    <td className="py-3 px-3 font-mono text-cyan-400">#{item.id}</td>
+                    <td className="py-3 px-3 font-sans font-semibold text-cyan-400">#{item.id}</td>
                     <td className="py-3 px-3 max-w-xs md:max-w-md truncate font-medium text-slate-200" title={item.claim_text}>
                       {item.claim_text}
                     </td>
                     <td className="py-3 px-3 whitespace-nowrap">
                       <VerdictBadge verdict={item.verdict} size="sm" />
                     </td>
-                    <td className="py-3 px-3 font-mono font-bold text-slate-200 whitespace-nowrap">
+                    <td className="py-3 px-3 font-sans font-bold text-slate-200 whitespace-nowrap">
                       {Math.round(item.confidence * 100)}%
                     </td>
                     <td className="py-3 px-3 text-slate-500 whitespace-nowrap">
@@ -226,7 +226,7 @@ export const HistoryView: React.FC<Props> = ({ onOpenResult }) => {
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
-              <span className="px-2 font-mono">
+              <span className="px-2 font-sans font-medium">
                 {page} / {data.total_pages}
               </span>
               <button
@@ -246,7 +246,7 @@ export const HistoryView: React.FC<Props> = ({ onOpenResult }) => {
       {/* Confirmation Modal for Delete */}
       {deleteId !== null && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="bg-[#0b0f19] rounded-xl max-w-sm w-full p-6 shadow-xl border border-rose-900/60 animate-in fade-in zoom-in-95 font-mono">
+          <div className="bg-[#0b0f19] rounded-xl max-w-sm w-full p-6 shadow-xl border border-rose-900/60 animate-in fade-in zoom-in-95 font-sans">
             <div className="flex items-center gap-3 text-rose-400 mb-3">
               <AlertCircle className="w-6 h-6" />
               <h3 className="text-base font-bold text-white">Delete Verification Record?</h3>

@@ -202,10 +202,10 @@ export const NodeDetailModal: React.FC<Props> = ({
         {/* Header */}
         <div className="flex items-start justify-between gap-3 pb-3 border-b border-[#1b263b]">
           <div>
-            <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-cyan-950/80 text-cyan-400 border border-cyan-800/60 uppercase font-semibold">
+            <span className="font-sans text-[10px] px-2 py-0.5 rounded bg-cyan-950/80 text-cyan-400 border border-cyan-800/60 uppercase font-semibold">
               {details.badge}
             </span>
-            <h3 className="font-mono font-bold text-sm text-white mt-1.5">{details.title}</h3>
+            <h3 className="font-sans font-bold text-sm text-white mt-1.5">{details.title}</h3>
           </div>
           <button
             type="button"
@@ -227,7 +227,7 @@ export const NodeDetailModal: React.FC<Props> = ({
           <button
             type="button"
             onClick={onClose}
-            className="px-3 py-1.5 rounded text-xs font-mono text-slate-400 hover:text-slate-200 hover:bg-slate-800/60"
+            className="px-3 py-1.5 rounded text-xs font-sans text-slate-400 hover:text-slate-200 hover:bg-slate-800/60"
           >
             Close
           </button>
@@ -237,7 +237,7 @@ export const NodeDetailModal: React.FC<Props> = ({
               details.action();
               onClose();
             }}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-cyan-600 hover:bg-cyan-500 text-white font-mono text-xs font-semibold shadow-[0_0_10px_rgba(6,182,212,0.4)]"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-cyan-600 hover:bg-cyan-500 text-white font-sans text-xs font-semibold shadow-[0_0_10px_rgba(6,182,212,0.4)]"
           >
             <span>{details.actionText}</span>
             <ExternalLink className="w-3.5 h-3.5" />
