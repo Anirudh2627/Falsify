@@ -1,3 +1,8 @@
 # Runtime dependencies for the Falsify verification engine (Python >= 3.11)
 pydantic>=2.7
 httpx>=0.27
+fastapi>=0.110.0
+uvicorn>=0.29.0
+pydantic-settings>=2.2.0
+sqlalchemy>=2.0.0
+alembic>=1.13.0
